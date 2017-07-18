@@ -27,10 +27,10 @@ public class CoreDataDefaultStorage: Storage {
         if let context = self._saveContext {
             return context
         }
-        let _context = cdContext(withParent: .context(self.rootSavingContext), concurrencyType: .privateQueueConcurrencyType, inMemory: false)
-        _context.observe(inMainThread: true) { [weak self] (notification) -> Void in
-            (self?.mainContext as? NSManagedObjectContext)?.mergeChanges(fromContextDidSave: notification as Notification)
-        }
+        let _context = cdContext(withParent: .context(self.mainContext as! NSManagedObjectContext), concurrencyType: .privateQueueConcurrencyType, inMemory: false)
+//        _context.observe(inMainThread: true) { [weak self] (notification) -> Void in
+//            (self?.mainContext as? NSManagedObjectContext)?.mergeChanges(fromContextDidSave: notification as Notification)
+//        }
         self._saveContext = _context
         return _context
     }
